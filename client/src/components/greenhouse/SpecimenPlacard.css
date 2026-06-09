@@ -1,0 +1,87 @@
+.gh-placard {
+  position: fixed;
+  width: auto;
+  max-width: 280px;
+  padding: 1.2rem 1.6rem;
+  border-radius: var(--radius-lg);
+  background: var(--surface-panel);
+  backdrop-filter: blur(var(--placard-blur, 20px));
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-strong);
+  pointer-events: none; /* Tooltip doesn't block clicks */
+  z-index: 1000;
+  
+  /* Entry animation */
+  animation: placard-enter 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes placard-enter {
+  0% { opacity: 0; transform: translateY(6px) scale(0.96); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.gh-placard-header {
+  margin-bottom: 0.8rem;
+}
+
+.gh-placard-species {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  color: var(--color-text);
+}
+
+.gh-placard-provenance {
+  color: var(--color-text-tertiary);
+  font-size: 0.8rem;
+}
+
+.gh-provenance-habit {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.gh-placard-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
+}
+
+.gh-placard-first-bloom {
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  color: var(--color-accent-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.2rem;
+}
+
+.gh-placard-reward {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(10, 51, 35, 0.08);
+}
+
+body[data-theme='dark'] .gh-placard-reward {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.gh-reward-label {
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  color: var(--color-accent-text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 0.4rem;
+}
+
+.gh-placard-reward p {
+  color: var(--color-text);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+

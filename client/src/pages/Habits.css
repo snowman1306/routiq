@@ -1,0 +1,631 @@
+.habits-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem 5% 4rem;
+}
+
+.habits-page::before,
+.habits-page::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(24px);
+}
+
+.habits-page::before {
+  top: 10%;
+  left: -8%;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, rgba(20, 120, 98, 0.16), rgba(20, 120, 98, 0));
+}
+
+.habits-page::after {
+  right: -10%;
+  bottom: 8%;
+  width: 20rem;
+  height: 20rem;
+  background: radial-gradient(circle, rgba(214, 135, 108, 0.16), rgba(214, 135, 108, 0));
+}
+
+.habits-header,
+.registry-summary-grid,
+.habits-grid {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.habits-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.habits-header h1 {
+  font-size: clamp(3rem, 6vw, 4.9rem);
+  line-height: 0.96;
+}
+
+.habits-subtitle {
+  max-width: 42rem;
+  margin-top: 0.9rem;
+  color: rgba(10, 51, 35, 0.7);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.add-habit-btn,
+.action-btn,
+.milestone-modal-actions button {
+  transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease, color 220ms ease;
+}
+
+.add-habit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1rem 1.45rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #124d39, #1f7960);
+  color: #fbf7ef;
+  font-family: var(--font-accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 18px 34px rgba(18, 77, 57, 0.18);
+}
+
+.add-habit-btn:hover,
+.action-btn:hover,
+.milestone-modal-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.registry-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.registry-summary-card,
+.habit-card,
+.empty-state,
+.milestone-modal {
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.26), transparent 26%),
+    linear-gradient(180deg, rgba(255, 250, 241, 0.74), rgba(248, 239, 222, 0.3));
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-soft);
+}
+
+.registry-summary-card {
+  min-height: 8.8rem;
+  padding: 1.25rem;
+  border-radius: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.registry-summary-card span {
+  color: rgba(10, 51, 35, 0.52);
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.registry-summary-card strong {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1rem;
+}
+
+.habit-card {
+  padding: 1.4rem;
+  border-radius: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.habit-card.inactive {
+  opacity: 0.72;
+}
+
+.habit-card-top {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.habit-header h3 {
+  font-size: 2rem;
+  line-height: 0.98;
+}
+
+.habit-description {
+  margin-top: 0.75rem;
+  color: rgba(10, 51, 35, 0.68);
+  line-height: 1.7;
+}
+
+.habit-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.habit-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.68rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background: rgba(255, 249, 235, 0.42);
+  color: rgba(10, 51, 35, 0.64);
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.habit-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.habit-detail-card {
+  padding: 0.95rem;
+  border-radius: 1.2rem;
+  background: rgba(255, 249, 235, 0.36);
+  border: 1px solid rgba(10, 51, 35, 0.06);
+}
+
+.habit-detail-card span,
+.habit-meta-strip span {
+  display: inline-flex;
+  color: rgba(10, 51, 35, 0.5);
+  font-family: var(--font-accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.habit-detail-card strong {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--forest-deep);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.habit-meta-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.habit-meta-strip span {
+  padding: 0.62rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background: rgba(255, 249, 235, 0.34);
+}
+
+.habit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: stretch;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.9rem;
+  border-radius: 999px;
+  font-family: var(--font-accent);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.action-btn.log,
+.action-btn.milestone,
+.action-btn.replant,
+.action-btn.edit {
+  gap: 0.55rem;
+  padding: 0.9rem 1.1rem;
+  text-decoration: none;
+}
+
+.action-btn.log {
+  background: rgba(18, 77, 57, 0.08);
+  color: var(--forest-deep);
+}
+
+.action-btn.log.logged {
+  color: rgba(10, 51, 35, 0.4);
+  pointer-events: none;
+  cursor: default;
+}
+
+.action-btn.milestone {
+  border: none;
+  background: linear-gradient(135deg, #d6876c, #b95a48);
+  color: #fff8f4;
+  box-shadow: 0 14px 28px rgba(185, 90, 72, 0.16);
+}
+
+.action-btn.replant {
+  border: none;
+  background: linear-gradient(135deg, #124d39, #1f7960);
+  color: #fbf7ef;
+  box-shadow: 0 14px 28px rgba(18, 77, 57, 0.16);
+}
+
+.action-btn.edit {
+  border: 1px solid rgba(10, 51, 35, 0.1);
+  background: rgba(18, 77, 57, 0.08);
+  color: var(--forest-deep);
+}
+
+.action-btn.delete {
+  flex: 0 0 auto;
+  width: 2.9rem;
+  height: 2.9rem;
+  padding: 0;
+  border: 1px solid rgba(10, 51, 35, 0.1);
+  background: rgba(255, 249, 235, 0.42);
+  color: rgba(10, 51, 35, 0.58);
+}
+
+.action-btn.delete svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 3rem 2rem;
+  border-radius: 2rem;
+  text-align: center;
+}
+
+.empty-state p {
+  margin-bottom: 1.2rem;
+  color: rgba(10, 51, 35, 0.66);
+  font-size: 1.1rem;
+}
+
+.milestone-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 51, 35, 0.34);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2rem 1.1rem;
+  z-index: 1200;
+}
+
+.milestone-modal {
+  position: relative;
+  width: min(680px, 100%);
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.7rem;
+  border-radius: 2rem;
+}
+
+body[data-theme='dark'] .habits-subtitle,
+body[data-theme='dark'] .empty-state p,
+body[data-theme='dark'] .milestone-modal-copy,
+body[data-theme='dark'] .habit-description {
+  color: var(--color-text-secondary);
+}
+
+body[data-theme='dark'] .habit-stat-chip,
+body[data-theme='dark'] .habit-meta-strip span,
+body[data-theme='dark'] .habit-detail-card,
+body[data-theme='dark'] .edit-plant-option,
+body[data-theme='dark'] .action-btn.delete,
+body[data-theme='dark'] .milestone-modal-actions .back-btn {
+  background: var(--surface-chip);
+  border-color: var(--color-border);
+}
+
+body[data-theme='dark'] .habit-stat-chip,
+body[data-theme='dark'] .habit-meta-strip span,
+body[data-theme='dark'] .action-btn.delete,
+body[data-theme='dark'] .edit-plant-option span {
+  color: var(--color-text-secondary);
+}
+
+body[data-theme='dark'] .action-btn.log,
+body[data-theme='dark'] .action-btn.edit {
+  background: rgba(123, 198, 172, 0.14);
+  border-color: rgba(123, 198, 172, 0.24);
+  color: var(--color-text-primary);
+}
+
+body[data-theme='dark'] .action-btn.delete,
+body[data-theme='dark'] .milestone-modal-actions .back-btn {
+  color: var(--color-text-primary);
+}
+
+body[data-theme='dark'] .edit-plant-option.selected {
+  background: rgba(123, 198, 172, 0.18);
+  border-color: rgba(123, 198, 172, 0.34);
+}
+
+body[data-theme='dark'] .celebration-plant-card,
+body[data-theme='dark'] .celebration-next-card,
+body[data-theme='dark'] .celebration-unlocks {
+  background: var(--surface-chip);
+  border-color: var(--color-border);
+}
+
+body[data-theme='dark'] .celebration-next-card span,
+body[data-theme='dark'] .celebration-unlocks span {
+  color: var(--color-accent-text);
+}
+
+body[data-theme='dark'] .celebration-unlocks p {
+  color: var(--color-text-secondary);
+}
+
+.reward-burst {
+  position: absolute;
+  top: -2rem;
+  right: -1rem;
+  width: 9rem;
+  height: 9rem;
+}
+
+.reward-burst span {
+  position: absolute;
+  width: 0.35rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(214, 135, 108, 0.9), rgba(255, 229, 184, 0));
+  transform-origin: center 4rem;
+}
+
+.reward-burst span:nth-child(1) { transform: rotate(0deg); top: 2.2rem; left: 4rem; }
+.reward-burst span:nth-child(2) { transform: rotate(45deg); top: 2.6rem; left: 4.8rem; }
+.reward-burst span:nth-child(3) { transform: rotate(90deg); top: 3.6rem; left: 5.2rem; }
+.reward-burst span:nth-child(4) { transform: rotate(135deg); top: 4.6rem; left: 4.8rem; }
+
+.milestone-modal h2 {
+  margin-top: 0.55rem;
+  font-size: 2.4rem;
+  line-height: 0.98;
+}
+
+.milestone-modal-copy {
+  margin-top: 0.8rem;
+  color: rgba(10, 51, 35, 0.68);
+  line-height: 1.8;
+}
+
+.milestone-form {
+  margin-top: 1rem;
+}
+
+.milestone-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.milestone-modal-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.celebration-modal {
+  overflow: hidden;
+}
+
+.celebration-burst {
+  transform: scale(1.2);
+}
+
+.celebration-plant-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 0.9rem;
+  margin-top: 1.1rem;
+}
+
+.celebration-plant-card,
+.celebration-next-card,
+.celebration-unlocks {
+  border-radius: 1.5rem;
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background: rgba(255, 249, 235, 0.34);
+}
+
+.celebration-plant-card {
+  padding: 1rem;
+  display: grid;
+  justify-items: center;
+}
+
+.celebration-next-card {
+  padding: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  align-content: center;
+  justify-items: start;
+}
+
+.celebration-next-card span,
+.celebration-unlocks span {
+  color: rgba(10, 51, 35, 0.52);
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.celebration-next-card strong {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.celebration-unlocks {
+  margin-top: 0.9rem;
+  padding: 1rem;
+}
+
+.celebration-unlocks p {
+  margin-top: 0.45rem;
+  color: rgba(10, 51, 35, 0.68);
+  line-height: 1.7;
+}
+
+.edit-plant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.7rem;
+}
+
+.edit-plant-option {
+  padding: 0.8rem 0.6rem;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background: rgba(255, 249, 235, 0.42);
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.edit-plant-option.selected {
+  border-color: rgba(18, 77, 57, 0.24);
+  background: rgba(18, 77, 57, 0.08);
+}
+
+.edit-plant-option.locked {
+  opacity: 0.45;
+}
+
+.edit-plant-option span {
+  color: rgba(10, 51, 35, 0.62);
+  font-family: var(--font-accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.milestone-modal-actions .back-btn,
+.milestone-modal-actions .submit-btn {
+  padding: 1rem 1.2rem;
+  border-radius: 999px;
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.milestone-modal-actions .back-btn {
+  border: 1px solid rgba(10, 51, 35, 0.1);
+  background: rgba(255, 249, 235, 0.42);
+  color: var(--forest-deep);
+}
+
+.milestone-modal-actions .submit-btn {
+  flex: 1;
+  border: none;
+  background: linear-gradient(135deg, #124d39, #1f7960);
+  color: #fbf7ef;
+  box-shadow: 0 16px 32px rgba(18, 77, 57, 0.18);
+}
+
+.habits-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(10, 51, 35, 0.58);
+}
+
+@media (max-width: 980px) {
+  .habits-header,
+  .registry-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .habits-page {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
+  .habit-card-top,
+  .habit-detail-grid,
+  .milestone-form-grid,
+  .milestone-modal-actions {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .habit-card,
+  .empty-state,
+  .milestone-modal {
+    border-radius: 1.7rem;
+  }
+
+  .celebration-plant-row {
+    grid-template-columns: 1fr;
+  }
+
+  .milestone-modal-backdrop {
+    padding: 0.9rem;
+  }
+
+  .milestone-modal {
+    max-height: calc(100vh - 1.8rem);
+    padding: 1.3rem;
+  }
+}

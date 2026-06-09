@@ -1,0 +1,104 @@
+.botanical-tree-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0.5rem 1rem 0;
+  overflow: hidden;
+}
+
+.arboretum-aura {
+  position: absolute;
+  width: min(82vw, 38rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.08) 34%, rgba(255, 255, 255, 0) 72%),
+    radial-gradient(circle at 50% 50%, rgba(190, 224, 215, 0.12), rgba(190, 224, 215, 0) 74%);
+  filter: blur(6px);
+  animation: arboretumPulse 7s ease-in-out infinite alternate;
+}
+
+.arboretum-motes {
+  position: absolute;
+  inset: 18% 12% 16%;
+  pointer-events: none;
+}
+
+.mote {
+  position: absolute;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: rgba(255, 246, 216, 0.82);
+  box-shadow: 0 0 18px rgba(255, 246, 216, 0.35);
+  animation: moteDrift 8s ease-in-out infinite alternate;
+}
+
+.mote-one {
+  top: 16%;
+  left: 22%;
+}
+
+.mote-two {
+  top: 8%;
+  right: 26%;
+  width: 0.65rem;
+  height: 0.65rem;
+  animation-delay: 1s;
+}
+
+.mote-three {
+  top: 48%;
+  right: 14%;
+  width: 0.72rem;
+  height: 0.72rem;
+  animation-delay: 1.8s;
+}
+
+.arboretum-plant {
+  position: relative;
+  z-index: 1;
+  transition: transform 320ms ease;
+  transform-origin: center bottom;
+}
+
+.arboretum-plant .plant-preview {
+  gap: 0;
+}
+
+.arboretum-plant .plant-preview.large .plant-preview-svg {
+  width: min(100%, 29rem);
+  filter: drop-shadow(0 26px 40px rgba(14, 26, 28, 0.24));
+}
+
+@keyframes arboretumPulse {
+  from {
+    opacity: 0.7;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes moteDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.4;
+  }
+  to {
+    transform: translate3d(0.65rem, -0.8rem, 0);
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arboretum-aura,
+  .mote {
+    animation: none;
+  }
+}

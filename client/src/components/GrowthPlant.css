@@ -1,0 +1,56 @@
+.growth-plant-container {
+  display: grid;
+  gap: 1rem;
+  text-align: center;
+}
+
+.plant-display {
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+}
+
+.plant-mark {
+  width: 8rem;
+  height: auto;
+}
+
+.plant-info h3 {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.plant-info p {
+  margin-top: 0.35rem;
+  color: rgba(10, 51, 35, 0.62);
+}
+
+.progress-bar-container {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.progress-bar {
+  height: 0.7rem;
+  border-radius: 999px;
+  background: rgba(10, 51, 35, 0.08);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #124d39, #d6876c);
+  box-shadow: 0 6px 18px rgba(18, 77, 57, 0.18);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(10, 51, 35, 0.48);
+  font-family: var(--font-accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

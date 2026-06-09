@@ -1,0 +1,582 @@
+.dashboard-premium {
+  position: relative;
+  min-height: 100vh;
+  padding: 2rem 5% 4rem;
+}
+
+.dashboard-premium::before,
+.dashboard-premium::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 999px;
+  filter: blur(24px);
+}
+
+.dashboard-premium::before {
+  top: 8%;
+  left: -8%;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(20, 120, 98, 0.18), rgba(20, 120, 98, 0));
+}
+
+.dashboard-premium::after {
+  right: -9%;
+  bottom: 10%;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, rgba(214, 135, 108, 0.18), rgba(214, 135, 108, 0));
+}
+
+.dashboard-width {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.dashboard-header-premium {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 1.25rem;
+  align-items: end;
+  margin-bottom: 2rem;
+}
+
+.dashboard-kicker,
+.section-kicker,
+.stat-label,
+.view-all-link,
+.log-link {
+  font-family: var(--font-accent);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.dashboard-kicker,
+.section-kicker {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  color: #145845;
+}
+
+.greeting-serif {
+  max-width: 12ch;
+  font-size: clamp(3rem, 7vw, 5.2rem);
+  line-height: 0.94;
+}
+
+.motivational-italic {
+  margin-top: 0.9rem;
+  color: rgba(10, 51, 35, 0.7);
+  font-size: 1.16rem;
+  line-height: 1.75;
+}
+
+.date-display {
+  margin-top: 1.2rem;
+}
+
+.date-display span {
+  display: inline-flex;
+  padding: 0.65rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background: rgba(255, 249, 235, 0.42);
+  color: rgba(10, 51, 35, 0.7);
+  font-family: var(--font-accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.header-note,
+.dashboard-signal-card,
+.stat-card-premium,
+.tree-section-premium,
+.habits-section-premium,
+.habit-item-premium,
+.empty-state-premium {
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.28), transparent 26%),
+    linear-gradient(180deg, rgba(255, 250, 241, 0.72), rgba(248, 239, 222, 0.28));
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-soft);
+}
+
+.header-note {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 1.3rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1.5rem;
+}
+
+.header-note strong {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.header-note span {
+  color: rgba(10, 51, 35, 0.62);
+}
+
+.header-right {
+  display: grid;
+  gap: 1rem;
+}
+
+.dashboard-signal-card {
+  padding: 1.35rem;
+  border-radius: 2rem;
+}
+
+.signal-label {
+  display: inline-flex;
+  margin-bottom: 0.55rem;
+  color: rgba(10, 51, 35, 0.48);
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dashboard-signal-card strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.dashboard-signal-card p {
+  margin-top: 0.6rem;
+  color: rgba(10, 51, 35, 0.68);
+  line-height: 1.7;
+}
+
+.btn-add-premium {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1rem 1.45rem;
+  border-radius: 999px;
+  text-decoration: none;
+  background: linear-gradient(135deg, #124d39, #1f7960);
+  color: #fcf8ef;
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  box-shadow: 0 18px 34px rgba(18, 77, 57, 0.2);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.btn-add-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 42px rgba(18, 77, 57, 0.26);
+}
+
+.stats-row-premium {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.stat-card-premium {
+  min-height: 10.5rem;
+  padding: 1.4rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-label {
+  color: rgba(10, 51, 35, 0.52);
+}
+
+.stat-value-serif {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  color: #0d3024;
+}
+
+.content-grid-premium {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 1rem;
+}
+
+.tree-section-premium,
+.habits-section-premium {
+  padding: 1.5rem;
+  border-radius: 2.4rem;
+}
+
+.section-title-premium {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(10, 51, 35, 0.08);
+}
+
+.title-serif {
+  font-size: 2rem;
+  line-height: 1.02;
+}
+
+.completion-percentage {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  color: #1f7960;
+}
+
+.arboretum-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.arboretum-tab {
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background: transparent;
+  color: rgba(10, 51, 35, 0.6);
+  font-family: var(--font-accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.arboretum-tab:hover {
+  background: rgba(10, 51, 35, 0.04);
+}
+
+.arboretum-tab.active {
+  background: rgba(18, 77, 57, 0.08);
+  border-color: rgba(18, 77, 57, 0.24);
+  color: var(--forest-deep);
+}
+
+.tree-container-premium {
+  min-height: 48rem;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.featured-plant-strip,
+.garden-preview-card,
+.garden-preview-empty {
+  border: 1px solid rgba(10, 51, 35, 0.08);
+  background: rgba(255, 249, 235, 0.38);
+}
+
+.featured-plant-strip {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.featured-plant-copy h3 {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.featured-plant-copy p {
+  margin-top: 0.45rem;
+  color: rgba(10, 51, 35, 0.66);
+  line-height: 1.7;
+}
+
+.view-all-link {
+  color: rgba(10, 51, 35, 0.58);
+  text-decoration: none;
+}
+
+.view-all-link:hover,
+.log-link:hover {
+  color: var(--forest-deep);
+}
+
+.habits-list-premium {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.habit-item-premium {
+  padding: 1.2rem;
+  border-radius: 1.55rem;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.habit-item-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(54, 79, 64, 0.12);
+}
+
+.habit-title-serif {
+  font-size: 1.45rem;
+  line-height: 1.08;
+}
+
+.habit-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.habit-meta span {
+  color: rgba(10, 51, 35, 0.64);
+}
+
+.log-link {
+  color: #145845;
+  text-decoration: none;
+}
+
+.log-link.logged {
+  color: rgba(10, 51, 35, 0.4);
+  pointer-events: none;
+  cursor: default;
+}
+
+.empty-state-premium {
+  padding: 2rem;
+  border-radius: 1.8rem;
+  text-align: center;
+}
+
+.empty-state-premium p {
+  margin-bottom: 1.1rem;
+  color: rgba(10, 51, 35, 0.68);
+}
+
+.dashboard-garden-preview {
+  margin-top: 1rem;
+}
+
+.section-title-premium.compact {
+  margin-bottom: 0.8rem;
+}
+
+.garden-preview-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.garden-preview-card,
+.garden-preview-empty {
+  padding: 1rem;
+  border-radius: 1.4rem;
+  text-align: center;
+}
+
+.garden-preview-card span {
+  display: block;
+  margin-top: 0.45rem;
+  color: rgba(10, 51, 35, 0.62);
+  font-family: var(--font-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.garden-preview-empty {
+  grid-column: 1 / -1;
+  color: rgba(10, 51, 35, 0.58);
+}
+
+.dashboard-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.dashboard-loading p {
+  color: rgba(10, 51, 35, 0.6);
+}
+
+.loader {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 3px solid rgba(10, 51, 35, 0.08);
+  border-top-color: #1f7960;
+  animation: dashboardSpin 0.9s linear infinite;
+}
+
+@keyframes dashboardSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1080px) {
+  .dashboard-header-premium,
+  .content-grid-premium,
+  .stats-row-premium {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .dashboard-premium {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
+  .tree-section-premium,
+  .habits-section-premium {
+    border-radius: 1.8rem;
+  }
+
+  .habit-meta,
+  .section-title-premium {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .featured-plant-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .garden-preview-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Full Dark Mode Support Suite for Dashboard */
+body[data-theme='dark'] .header-note,
+body[data-theme='dark'] .dashboard-signal-card,
+body[data-theme='dark'] .stat-card-premium,
+body[data-theme='dark'] .tree-section-premium,
+body[data-theme='dark'] .habits-section-premium,
+body[data-theme='dark'] .habit-item-premium,
+body[data-theme='dark'] .empty-state-premium {
+  background: 
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.04), transparent 28%),
+    linear-gradient(180deg, rgba(25, 38, 34, 0.88), rgba(18, 28, 25, 0.5));
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+body[data-theme='dark'] .stat-value-serif {
+  color: #ffffff;
+}
+
+body[data-theme='dark'] .dashboard-kicker,
+body[data-theme='dark'] .section-kicker,
+body[data-theme='dark'] .completion-percentage {
+  color: #35b28d;
+}
+
+body[data-theme='dark'] .motivational-italic,
+body[data-theme='dark'] .dashboard-signal-card p,
+body[data-theme='dark'] .featured-plant-copy p,
+body[data-theme='dark'] .habit-meta span,
+body[data-theme='dark'] .empty-state-premium p {
+  color: #a5bcaf;
+}
+
+body[data-theme='dark'] .date-display span {
+  background: rgba(255, 255, 255, 0.06);
+  color: #9eb6a8;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+body[data-theme='dark'] .stat-label,
+body[data-theme='dark'] .signal-label,
+body[data-theme='dark'] .header-note span {
+  color: #7f9c8c;
+}
+
+body[data-theme='dark'] .view-all-link {
+  color: #a8c7b6;
+}
+
+body[data-theme='dark'] .view-all-link:hover {
+  color: #ffffff;
+}
+
+body[data-theme='dark'] .arboretum-tab {
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #8fa89c;
+}
+
+body[data-theme='dark'] .arboretum-tab:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body[data-theme='dark'] .arboretum-tab.active {
+  background: rgba(31, 121, 96, 0.15);
+  border-color: rgba(31, 121, 96, 0.5);
+  color: #45dfb0;
+}
+
+body[data-theme='dark'] .featured-plant-strip,
+body[data-theme='dark'] .garden-preview-card,
+body[data-theme='dark'] .garden-preview-empty {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+body[data-theme='dark'] .garden-preview-empty {
+  color: #9eb7a8;
+}
+
+body[data-theme='dark'] .garden-preview-card span {
+  color: #8eb5a2;
+}
+
+body[data-theme='dark'] .log-link {
+  color: #38cfa3;
+}
+
+body[data-theme='dark'] .log-link.logged {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+body[data-theme='dark'] .loader {
+  border-color: rgba(255, 255, 255, 0.06);
+  border-top-color: #1f7960;
+}
+

@@ -1,7 +1,7 @@
-// 1. dotenv MUST be first — before any other require
 require('dotenv').config({ override: true });
 
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { initDatabase } = require('./database/init');
 const authRoutes = require('./routes/auth');
@@ -17,7 +17,6 @@ const reminderService = require('./services/reminderService');
 
 const app = express();
 
-// 2. Lock CORS to your actual frontend URL
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true
@@ -40,9 +39,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// 3. /api/fix-db is DELETED — never put this in production
+// Serve built React frontend
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// 4. Bind to 0.0.0.0 so cloud hosts can route traffic to it
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  }
+});
+
 const startServer = (port) => {
   const server = app.listen(port, '0.0.0.0', () => {
     console.log(`Server started on ${port}`);
@@ -59,7 +64,7 @@ const startServer = (port) => {
 
 const startApp = async () => {
   try {
-    reminderService.start(); // Works fine on Render/Railway
+    reminderService.start();
     await initDatabase();
     const initialPort = process.env.PORT ? Number(process.env.PORT) : 5600;
     startServer(initialPort);
@@ -71,14 +76,3 @@ const startApp = async () => {
 startApp();
 
 module.exports = app;
-const path = require('path');
-
-// Serve built React app
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// Any non-API route serves the React app
-app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-  }
-});

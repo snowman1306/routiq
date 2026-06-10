@@ -228,23 +228,49 @@ async function getUserPlantCount(userId) {
 }
 
 function detectHabitIntent(message) {
-  const trimmed = message.trim();
-  const savePattern = /(confirm\s*(?:&|and)?\s*save|save\s*(?:and|&)\s*add|save\s*(?:to|into)\s*(?:tracker|registry)|confirm\s*(?:to)?\s*save|register\s*habit|add\s*to\s*tracker)/i;
+  const trimmed = String(message || '').trim();
+
+  if (!trimmed) {
+    return { type: 'none' };
+  }
+
+  const savePattern =
+    /(confirm\s*(?:&|and)?\s*save|save\s*(?:and|&)\s*add|save\s*(?:to|into)\s*(?:tracker|registry)|confirm\s*(?:to)?\s*save|register\s*habit|yes,\s*save|yes save|go ahead and save)/i;
+
   if (savePattern.test(trimmed)) {
     return { type: 'confirm_save' };
   }
 
-  const genericRequest = /(?:add|create|suggest|recommend|build)\s+(?:some|any|new|other|different|few)\s+habits?|(?:habit|habits)\s+(?:ideas?|recommendations?|suggestions?)/i;
-  if (genericRequest.test(trimmed)) {
+  const recommendationPatterns = [
+    /\bwhat\s+habits?\b.*\b(?:recommend|suggest)\b/i,
+    /\b(?:recommend|suggest)\b.*\bhabits?\b/i,
+    /\bhabit\s+(?:ideas?|recommendations?|suggestions?)\b/i,
+    /\b(?:some|any|new|other|different|few)\s+habits?\b/i,
+    /\bwhat\s+should\s+i\s+add\b.*\b(?:tracker|registry)\b/i,
+    /\bwhich\s+habits?\b.*\badd\b.*\b(?:tracker|registry)\b/i,
+    /\bnew\s+user\b.*\bhabits?\b/i,
+    /\bcomplementary\s+habits?\b/i
+  ];
+
+  if (recommendationPatterns.some((pattern) => pattern.test(trimmed))) {
     return { type: 'none' };
   }
 
-  const createMatch = trimmed.match(/(?:add|create|build|start)\s+(?:a|an|the)?\s*(?:habit(?:\s+called|\s+named)?\s*)?(?:"|“|”)?([^"“”]+?)(?:"|“|”)?(?:\s+to\s+my|\s+with|\s+for|\s+in|\s+into|\s+as|\s*$)/i);
-  if (createMatch) {
-    let name = createMatch[1].trim();
-    name = name.replace(/^(a|an|the)\s+/i, '').trim();
-    const genericNamePattern = /^(some|any|new|other|different|few|habit ideas?|suggestions?|recommendations?)\b/i;
-    if (name.length > 0 && !genericNamePattern.test(name)) {
+  const createPatterns = [
+    /^(?:can you\s+|could you\s+|please\s+)?(?:add|create|start|build)\s+(?:a|an|the)?\s*(?:habit\s+(?:called|named)\s+)?(?:"([^"\n]+)"|“([^”\n]+)”|([a-z0-9][a-z0-9 '&-]{1,80}?))(?=\s+(?:to\s+(?:my|the)?\s*(?:tracker|registry)|for\s+me|in\s+(?:my|the)?\s*(?:tracker|registry)|with\b|as\b)|[.!?]?\s*$)/i,
+    /^(?:can you\s+|could you\s+|please\s+)?(?:my\s+new\s+habit\s+is|habit\s+(?:called|named))\s+(?:"([^"\n]+)"|“([^”\n]+)”|([a-z0-9][a-z0-9 '&-]{1,80}?))[.!?]?$/i
+  ];
+
+  for (const pattern of createPatterns) {
+    const match = trimmed.match(pattern);
+
+    if (!match) {
+      continue;
+    }
+
+    const name = (match[1] || match[2] || match[3] || '').trim();
+
+    if (name) {
       return { type: 'draft', habitName: name };
     }
   }
@@ -384,6 +410,7 @@ async function createHabitFromHistory(userId, history) {
 
 async function generateHabitDraftResponse(userId, habitName) {
   const suggestions = await generateHabitSuggestions(userId, habitName);
+
   const responseLines = [
     `Habit Draft: ${habitName}`,
     `Habit name: ${habitName}`,
@@ -401,7 +428,7 @@ async function generateHabitDraftResponse(userId, habitName) {
     `Which flower do you want for the habit? Choose one of your unlocked flowers.`,
     `Selected plant type: ${suggestions.selected_plant_type}`,
     ``,
-    `These fields are editable in the chat. When you are ready, confirm and save to add this habit directly to your tracker.`
+    `Review these fields in the dropdown, edit anything you want, and use the green save button only when you're happy with it.`
   ];
 
   return responseLines.join('\n');
@@ -823,7 +850,7 @@ async function generateLocalResponse(userId, message, history) {
   }
 
   // ── Recommendations / New habits ──
-  if (msg.match(/(recommend|suggest|add|new habit|complement|what.*should|what.*next|start|begin)/)) {
+  if (msg.match(/(recommend|suggest|new habit|complement|what.*should|what.*next)/)) {
     if (ctx.activeHabits.length >= 5) {
       return `You currently have **${ctx.activeHabits.length} active habits** — that's approaching cognitive overload territory. Research shows willpower dilutes beyond 3-5 concurrent habits.\n\nBefore adding more, I'd focus on getting at least 3 of your current habits to a **70%+ consistency rate** over 14 days. ${Object.values(ctx.habitStats).some(s => s.completionRate < 50) ? `Right now, some of your habits are below 50% completion.` : 'You\'re doing well on consistency — almost ready to expand.'}`;
     }

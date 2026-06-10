@@ -126,9 +126,17 @@ function Chat() {
 
   const unlockedPlantOptions = plantCatalog.filter((plant) => plant.unlocked);
 
+
   const parseHabitDraftMessage = (content) => {
     const normalizedContent = content.toLowerCase();
-    if (!normalizedContent.includes('habit draft') && !normalizedContent.includes('habit name')) {
+
+    // Must have BOTH "habit draft:" as a label AND "description:" to be considered a real draft
+    // This prevents plain recommendation text from triggering the draft form
+    const hasDraftLabel = /^habit draft\s*:/im.test(content);
+    const hasDescription = /^description\s*:/im.test(content);
+    const hasWhenSpecifically = /^when specifically\s*:/im.test(content);
+
+    if (!hasDraftLabel || !hasDescription || !hasWhenSpecifically) {
       return null;
     }
 
@@ -173,8 +181,7 @@ function Chat() {
       'current reward': 'current_reward',
       'habit time': 'habit_time',
       'plant type': 'selected_plant_type',
-      'selected plant type': 'selected_plant_type'
-      ,
+      'selected plant type': 'selected_plant_type',
       'habit id': 'id'
     };
 
@@ -185,7 +192,7 @@ function Chat() {
       }
     });
 
-    if (Object.keys(normalized).length === 0) {
+    if (!normalized.name || !normalized.description || !normalized.when_specifically) {
       return null;
     }
 
@@ -194,6 +201,7 @@ function Chat() {
       ...normalized
     };
   };
+
 
   const isHabitDraftMessage = (msg) => msg?.draft?.type === 'habit-draft';
 
